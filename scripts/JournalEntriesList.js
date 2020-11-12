@@ -35,14 +35,14 @@ const render = (entriesArray, moodsArray) =>
 {
     contentTarget.innerHTML = entriesArray.map(entry => {
         const relatedMood = moodsArray.find(mood => mood.id === entry.moodId)
-        //console.log(relatedMood)
+        console.log(relatedMood)
         return `
         <section id="entry--${entry.id}" class="journalEntry">
         <div>Date: ${entry.date}</div>
         <div>Concept: ${entry.concept}</div>
 
         <div>Entry: ${entry.entry}</div>
-        <div>Mood: ${relatedMood.mood.label}</div>
+        <div>Mood: ${relatedMood.label}</div>
         <button type="button">edit</button>
         <button id="deleteNote--${entry.id}" type="button">delete</button>
       </section>
@@ -91,12 +91,12 @@ eventHub.addEventListener("moodFilter", moodFilterEventObj => {
 
     const filteredEntriesArray = allEntries.filter(moodFilterEventObj => {
         if (moodFilterEventObj.moodId === selectedMood) {
-            return moodFilterEventObj
+            return true
         }
 
     })
     console.log(filteredEntriesArray)
     //contentTarget.innerHTML = `${}`
-    render(filteredEntriesArray, allEntries)
+    render(filteredEntriesArray, allMoods)
 
 })//end of evenHub fuct
