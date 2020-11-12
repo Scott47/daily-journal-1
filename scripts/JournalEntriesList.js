@@ -13,9 +13,9 @@ export const EntryListComponent = () => {
     .then(() => {
         const allEntries = useJournalEntries()
         const allMoods = useMoods()
-        
+
         render(allEntries, allMoods)
-    
+
     })
 
 }
@@ -31,7 +31,7 @@ export const EntryListComponent = () => {
 //     `
 // }
 
-const render = (entriesArray, moodsArray) => 
+const render = (entriesArray, moodsArray) =>
 {
     contentTarget.innerHTML = entriesArray.map(entry => {
         const relatedMood = moodsArray.find(mood => mood.id === entry.moodId)
@@ -40,9 +40,9 @@ const render = (entriesArray, moodsArray) =>
         <section id="entry--${entry.id}" class="journalEntry">
         <div>Date: ${entry.date}</div>
         <div>Concept: ${entry.concept}</div>
-        
+
         <div>Entry: ${entry.entry}</div>
-        <div>Mood: ${relatedMood.label}</div>
+        <div>Mood: ${relatedMood.mood.label}</div>
         <button type="button">edit</button>
         <button id="deleteNote--${entry.id}" type="button">delete</button>
       </section>
@@ -85,13 +85,13 @@ eventHub.addEventListener("moodFilter", moodFilterEventObj => {
     const allEntries = useJournalEntries()
     const allMoods = useMoods()
     console.log("Moodfilter Event is heard!", selectedMood)
-    
-    
+
+
     //console.log("entries array", journalEntriesArray)
 
     const filteredEntriesArray = allEntries.filter(moodFilterEventObj => {
         if (moodFilterEventObj.moodId === selectedMood) {
-            return true
+            return moodFilterEventObj
         }
 
     })
